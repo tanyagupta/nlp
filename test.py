@@ -1,3 +1,2 @@
-import nltk
-
-print("hello")
+from nltk.book import *
+print(text2)
