@@ -1,2 +1,2 @@
 import nltk
-nltk.corpus.gutenberg.fileids()
+#nltk.corpus.gutenberg.fileids()

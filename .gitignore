@@ -39,3 +39,4 @@ Thumbs.db
 Pipfile
 Pipfile.lock
 **/__pycache__
+**/.venv
