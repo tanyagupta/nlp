@@ -29,6 +29,8 @@
 
 # OS generated files #
 ######################
+Pipfile
+Pipfile.lock
 .DS_Store
 .DS_Store?
 ._*
