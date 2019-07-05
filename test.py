@@ -30,9 +30,37 @@ def unusual_words(text):
     unusual = text_vocab - english_vocab
     return sorted(unusual)
 
+def puzzle(puzzle):
+    puzzle_letters = nltk.FreqDist(puzzle)
+    obligatory = 'r'
+    wordlist = nltk.corpus.words.words()
+    result = [w for w in wordlist if len(w) >= 6 and obligatory in w and nltk.FreqDist(w) <= puzzle_letters]
+    return result
+
+def male_female_names():
+    names = nltk.corpus.names
+    male_names = names.words('male.txt')
+    female_names = names.words('female.txt')
+    androgyn_names = [w for w in male_names if w in female_names]
+    return androgyn_names
+
+def rhyme(syllable):
+    entries = nltk.corpus.cmudict.entries()
+    a_list = [word for word, pron in entries if pron[-4:] == syllable]
+    return a_list
+
+def stress():
+    entries = nltk.corpus.cmudict.entries()
+    res = [w for w, pron in entries if [char for phone in pron for char in phone if char.isdigit()] == ['0', '1', '0', '2', '0']]
+    return res
+
 def main ():
+    print(stress())
+    #print(rhyme(['N', 'IH0', 'K', 'S']))
+    #print(male_female_names())
+    #print(puzzle('egivrvonl'))
     #print(unusual_words(nltk.corpus.gutenberg.words('austen-sense.txt')))
-    print(stop())
+    #print(stop())
     #print (plural('fairy'))
     #print(cfd['living'])
     #generate_model(cfd, 'living')
