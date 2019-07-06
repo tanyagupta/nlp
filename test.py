@@ -1,6 +1,9 @@
 import nltk
+from nltk.util import bigrams
 from nltk.corpus import genesis
 from nltk.corpus import stopwords
+from nltk.corpus import PlaintextCorpusReader
+
 
 def generate_model(cfdist, word, num=15):
     for i in range(num):
@@ -10,6 +13,32 @@ def generate_model(cfdist, word, num=15):
 text = nltk.corpus.genesis.words('english-kjv.txt')
 bigrams = nltk.bigrams(text)
 cfd = nltk.ConditionalFreqDist(bigrams)
+
+
+def generate_model_your_own(cfdist, word, num=20):
+     for i in range(num):
+         print(word, end=' ')
+         word = cfdist[word].max()
+
+corpus_root = '/Users/abirqasem/nlp/dict'
+text = PlaintextCorpusReader(corpus_root, 'bicycle_thief.txt').words()
+
+
+#sents = bith.sents()
+#a_sent= bith.sents(fileids='bicycle_thief.txt')[19]
+
+bigrams = nltk.bigrams(text)
+cfd = nltk.ConditionalFreqDist(bigrams)
+#print(words)
+#print(sents)
+
+
+
+    #bgram = bith.bigrams(words)
+    #print(bgram)
+    #print(wordlists.fileids())
+    #text = wordlists.words('bicycle_thief.txt')
+    #print(wordlists)
 
 def stop():
     return stopwords.words('english')
@@ -55,7 +84,8 @@ def stress():
     return res
 
 def main ():
-    print(stress())
+    print(generate_model_your_own(cfd, 'bike'))
+    #print(stress())
     #print(rhyme(['N', 'IH0', 'K', 'S']))
     #print(male_female_names())
     #print(puzzle('egivrvonl'))
