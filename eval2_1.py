@@ -15,7 +15,7 @@ def main ():
     file_content_as_string = " "
 
     try:
-        file_handle = open("dict/para.txt", "r")
+        file_handle = open("dict/para2.txt", "r")
         file_content_as_string = file_content_as_string.join(file_handle.readlines())
         file_handle.close ()
         return (file_content_as_string)
@@ -75,6 +75,7 @@ def analyze (string):
     #print(set(positive_words))
     print(result)
     #print(count)
+
 
 
 
