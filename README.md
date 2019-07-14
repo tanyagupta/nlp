@@ -12,8 +12,10 @@ https://www.nltk.org/book/
 3. Open shell *pipenv shell*
 4. Open python by typing *python*, this starts the python shell (you will see three arrows like so >>>)
 
+
 ## Useful info
 1. Use exit() to exit python shell and exit to exit terminal
+1. 4. You have to be in the python shell to run the code
 1. Run python code from pipenv shell. You know you are in pipenv shell when you see () around the location
 1. Run python shell from pipenv shell. You know you are in python shell when you see >>>
 1. Run python code by *python name_of_file.py*
