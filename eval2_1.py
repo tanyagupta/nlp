@@ -46,23 +46,21 @@ def analyze (string):
     #print(opinion_lexicon.words()[:4])
     result = {}
     negative_words = []
-    positive_words = []
+    all_negative_words = []
     postive_result = []
     text_set = (string.split())
     num_words = len (text_set)
     clean_words = text_set
-    #clean_words = remove_stopwords(text_set)
     opinion_words = opinion_lexicon.negative()
-    #print(clean_words)
     #clean_words = ["stupid","afraid"]
     for item in clean_words:
         if item in opinion_words:
-            pos_word = make_positive(item)
-            if pos_word == item:
-                count = count + 1
-            postive_result.append(pos_word)
-            positive_words.append(pos_word)
-            #negative_words.append(item)
+            count = count + 1
+            new_word = make_positive(item)
+            if new_word != item: # i.e. if the word was changed successfully
+                negative_words.append(item)
+            postive_result.append(new_word)
+            all_negative_words.append(new_word)
 
 
         else:
@@ -71,10 +69,12 @@ def analyze (string):
     positive_text = " ".join(postive_result)
     result['original_text'] = string
     result['positive_text'] = positive_text
-    #print(full_sentence)
-    #print(set(positive_words))
+    result['all_negative_words'] = set(all_negative_words)
+    result['count'] = count
+    result['num_words'] = num_words
+    result['replaced_negative_words'] = set(negative_words)
     print(result)
-    #print(count)
+
 
 
 

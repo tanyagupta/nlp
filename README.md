@@ -19,4 +19,5 @@ https://www.nltk.org/book/
 1. Run python code from pipenv shell. You know you are in pipenv shell when you see () around the location
 1. Run python shell from pipenv shell. You know you are in python shell when you see >>>
 1. Run python code by *python name_of_file.py*
-1. If the file is in a different location you can still run it from pipenv shell using the correct location. For instace if the file is one level above the current location use *python ../test.py*
+1. If the file is in a different location you can still run it from pipenv shell using the correct location. For instance if the file is one level above the current location use *python ../test.py*
+1. Note pipenv shell has nothing to do with directories. You can always cd to change the directory within the pipenv shell. In the above example you can cd .., pwd to check you are one level up and then directly run *python test.py* without the *../*
