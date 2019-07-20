@@ -52,7 +52,7 @@ def hypo_explode (sent,translator):
 
 
     print(set(result))
-    return sents
+    return result
 
 
 def analyze (words):
