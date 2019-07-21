@@ -9,10 +9,22 @@ from nltk.corpus import wordnet as wn
 
 from nltk.corpus import stopwords as sw
 
-def main ():
+def main():
+    word_data = get_sent()
+    sent_obj = analyze(word_data)
+    sentence = sent_obj["sentence"]
+    translator = sent_obj["tree"]
+    result = hypo_explode (sentence,translator)
+
+    return result
+
+
+def get_sent ():
         corpus_root = '/Users/abirqasem/nlp/dict'
-        words = PlaintextCorpusReader(corpus_root, 'sentence.txt').words()
-        return words
+        sentence = PlaintextCorpusReader(corpus_root, 'sentence.txt')
+        words = sentence.words()
+        result = {"sentence": sentence, "words": words}
+        return result
 
 def create_keys(translator):
     result = {}
@@ -44,27 +56,27 @@ def hypo_explode (sent,translator):
                             result.append(new_val.replace(key,translator[key][i]))
 
                 if len(translator[sent[(sent.index(item))]]) > 0:
-
                     result.append(new_val.replace(sent[(sent.index(item))],translator[sent[(sent.index(item))]][0]))
 
                 count = count+1
 
-
-
-    print(set(result))
+    result = set(result)
     return result
 
 
-def analyze (words):
+def analyze (sentence_object):
+    final_obj = {}
+    words = sentence_object["words"]
+    sentence = " ".join(sentence_object["sentence"].sents()[0])
 
     positions = {}
-    clean_words = words
+    #lean_words = words
     result = {}
 
     for word in words:
         positions[word] = words.index(word)
 
-    for word in clean_words:
+    for word in words:
         content = wn.synsets(word,pos="n") #n stands for noun, and a for adjective
         if len(content) > 0:
 
@@ -77,24 +89,16 @@ def analyze (words):
 
         else:
             result[word] = []
+    final_obj["tree"] = result
+    final_obj["sentence"] = sentence
 
-    print(result)
+    return final_obj
 
 
 
 
 if __name__ == '__main__':
+    print(main())
 
-    #words = main()
-    #analyze(words)
-    sent = "a b c a"
-    sent1 = "Assign the Variable to a constant"
-
-
-    translator1 = {"Assign": ["Set value"], "the":[], "to":[], "a":[], "Variable":["memory location", "letter"], "constant": ["number", "fixed number"]}
-
-
-
-    translator = {"a": ["x","y"], "b": [], "c": ["z"]}
-    #print(create_keys(translator))
-    hypo_explode (sent1,translator1)
+    #sent1 = "Assign the Variable to a constant"
+    #translator1 = {"Assign": ["Set value"], "the":[], "to":[], "a":[], "Variable":["memory location", "letter"], "constant": ["number", "fixed number"]}
