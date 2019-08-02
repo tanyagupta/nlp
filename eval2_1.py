@@ -78,7 +78,6 @@ def analyze (string):
 
 
 
-
 def remove_stopwords(text_set):
     result = []
     stopwords = nltk.corpus.stopwords.words('english')
@@ -93,4 +92,5 @@ def remove_stopwords(text_set):
 if __name__ == '__main__':
 
     string = main()
+
     analyze(string)

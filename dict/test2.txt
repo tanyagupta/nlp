@@ -1,0 +1,1 @@
+You can access individual values in that collection with a combination of the array variable name and an index which denotes the position of that item in the array.

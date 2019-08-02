@@ -21,7 +21,7 @@ def main():
 
 def get_sent ():
         corpus_root = '/Users/abirqasem/nlp/dict'
-        sentence = PlaintextCorpusReader(corpus_root, 'sentence.txt')
+        sentence = PlaintextCorpusReader(corpus_root, 'test3.txt')
         words = sentence.words()
         result = {"sentence": sentence, "words": words}
         return result
