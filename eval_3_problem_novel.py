@@ -78,7 +78,7 @@ def get_novel(text):
             res.append(temp)
 
     all_synsets = []
-
+    items =res
     for item in items:
         #print(wn.wup_similarity(all_synsets[0], all_synsets[1]))
         #print(item)
@@ -94,9 +94,9 @@ def get_novel(text):
     result= []
     for item in all_synsets:
         if item[2] != None:
-            vals.append([item[0],item[1])
+            vals.append([item[0],item[1]])
         else:
-            result.append([item[0],item[1])
+            result.append([item[0],item[1]])
     result = [list(v) for v in dict(result).items()]
     print(result)
 
