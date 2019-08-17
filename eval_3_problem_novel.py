@@ -41,13 +41,7 @@ def get_novel(text):
     cc_words = {}
     result = []
 
-    #textList.concordance('is')
-    # for token in tokens:
-    #     c = nltk.ConcordanceIndex(textList.tokens, key = lambda s: s.lower())
-    #     print([textList.tokens[offset+1] for offset in c.offsets(token)])
 
-    #for token in tokens:
-    #    result.append(textList.concordance(token))
 
 
     res=[]

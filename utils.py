@@ -132,6 +132,13 @@ def comp_sims(word1,word2):
     #porter = nltk.PorterStemmer()
     return sims
 
+    #textList.concordance('is')
+    # for token in tokens:
+    #     c = nltk.ConcordanceIndex(textList.tokens, key = lambda s: s.lower())
+    #     print([textList.tokens[offset+1] for offset in c.offsets(token)])
+
+    #for token in tokens:
+    #    result.append(textList.concordance(token))
 
 
 def main ():
