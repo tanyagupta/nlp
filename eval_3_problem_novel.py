@@ -57,8 +57,12 @@ def get_novel(text):
         for item in con_list:
             temp = {}
             #print(item)
+
             if len(word) >1:
+                print(word)
                 word = re.sub(r'[^\w\s]','',word)
+                word = re.sub(r'[0-9]','',word)
+                print(word)
                 temp["word"] = word
             else:
                 temp["word"] =""
@@ -66,12 +70,14 @@ def get_novel(text):
 
                 left = str(item.left[0])
                 left = re.sub(r'[^\w\s]','',left)
+                left = re.sub(r'[0-9]','',left)
                 temp["left"] = left
             else:
                 temp["left"] =""
             if len(item.right) >1:
                 right = str(item.right[0])
                 right = re.sub(r'[^\w\s]','',right)
+                right = re.sub(r'[0-9]','',right)
                 temp["right"] = right
             else:
                 temp["right"] =""
@@ -79,6 +85,9 @@ def get_novel(text):
 
     all_synsets = []
     items =res
+
+    #print(items)
+
     for item in items:
         #print(wn.wup_similarity(all_synsets[0], all_synsets[1]))
         #print(item)
@@ -88,8 +97,13 @@ def get_novel(text):
             #print(wn.wup_similarity(word_synsets[0][0],word_synsets[0][1]))
             for synset in word_synsets:
                 #print('The word is {} and the words on the right are {} and the similarity is {}'.format(synset.lemmas()[0].name(),wn.synsets(item["right"][0])[0].lemmas()[0].name(),wn.wup_similarity(synset,wn.synsets(item["right"][0])[0])))
+                #print(item["word"])
                 if len(item["left"]) >0 and len(wn.synsets(item["left"])) > 0 and len(wn.synsets(item["word"])) > 0 :
-                    all_synsets.append([synset.lemmas()[0].name(),wn.synsets(item["left"][0])[0].lemmas()[0].name(),wn.wup_similarity(synset,wn.synsets(item["left"][0])[0])])
+                    #all_synsets.append([synset.lemmas()[0].name(),wn.synsets(item["left"][0])[0].lemmas()[0].name(),wn.wup_similarity(synset,wn.synsets(item["left"][0])[0])])
+                    all_synsets.append([item["word"],item["left"],wn.wup_similarity(synset,wn.synsets(item["left"][0])[0])])
+                if len(item["right"]) >0 and len(wn.synsets(item["right"])) > 0 and len(wn.synsets(item["word"])) > 0 :
+                    #all_synsets.append([synset.lemmas()[0].name(),wn.synsets(item["right"][0])[0].lemmas()[0].name(),wn.wup_similarity(synset,wn.synsets(item["right"][0])[0])])
+                    all_synsets.append([item["word"],item["right"],wn.wup_similarity(synset,wn.synsets(item["right"][0])[0])])
     vals=[]
     result= []
     for item in all_synsets:
