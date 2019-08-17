@@ -1,4 +1,5 @@
 import nltk
+from nltk.corpus import wordnet as wn
 from nltk.util import bigrams
 from nltk.corpus import genesis
 from nltk.corpus import stopwords
@@ -83,8 +84,62 @@ def stress():
     res = [w for w, pron in entries if [char for phone in pron for char in phone if char.isdigit()] == ['0', '1', '0', '2', '0']]
     return res
 
+def sim_syns(text):
+    all_synsets = []
+    for synset in (wn.synsets(text)):
+        all_synsets.append(synset)
+
+
+    result = []
+    length = len(all_synsets)
+    for synset in all_synsets:
+        count = 0
+        while count < length-1:
+            temp = []
+            temp.append(all_synsets[count])
+            temp.append(all_synsets[count+1])
+            result.append(temp)
+            count = count + 1
+
+    result = [list(v) for v in dict(result).items()]
+    for item in result:
+
+        print('The similarity of {} and {} is: {}'.format(item[0].lemma_names()[0],item[1].lemma_names()[0],wn.wup_similarity(item[0],item[1])))
+
+
+
+def lemma_names(item):
+    lems = {}
+    lems["word"] = item
+    content = str(item)+".n.01"
+    lemmas = wn.synset(content).lemma_names()
+    lems["lemmas"] = lemmas
+    temp=[]
+    for synset in wn.synsets(item):
+        temp.append(synset.lemma_names()[0])
+    lems["lemma_names"] = temp
+    return lems
+
+def comp_sims(word1,word2):
+    sims = {}
+    sims["noun1"] = word1
+    sims["noun2"] = word2
+    noun1 = wn.synset(word1+'.n.01')
+    noun2 = wn.synset(word2+'.n.01')
+    sims["path_similarity"] = noun1.path_similarity(noun2)
+    sims["lch_similarity"] = noun1.lch_similarity(noun2)
+    sims["wup_similarity"] = noun1.wup_similarity(noun2)
+    #porter = nltk.PorterStemmer()
+    return sims
+
+
+
 def main ():
-    print(generate_model_your_own(cfd, 'bike'))
+    print(comp_sims("dog","cat"))
+    #print(lemma_names("dog"))
+    #sim2()
+    #sim_syns("dog")
+    #print(generate_model_your_own(cfd, 'bike'))
     #print(stress())
     #print(rhyme(['N', 'IH0', 'K', 'S']))
     #print(male_female_names())

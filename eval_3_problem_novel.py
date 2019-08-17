@@ -57,9 +57,10 @@ def get_novel(text):
         for item in con_list:
             temp = {}
             #print(item)
-
+            # Removing the numbers and space and punctuation
+            # Creating a new dictionary that has the word, one word on the right and one word on the left
             if len(word) >1:
-                print(word)
+                #print(word)
                 word = re.sub(r'[^\w\s]','',word)
                 word = re.sub(r'[0-9]','',word)
                 print(word)
@@ -113,6 +114,7 @@ def get_novel(text):
             result.append([item[0],item[1]])
     result = [list(v) for v in dict(result).items()]
     print(result)
+    return result
 
 
 def is_unusual_word(text):
@@ -145,49 +147,3 @@ if __name__ == '__main__':
 #http://www.nltk.org/howto/wordnet.html
 #http://www.nltk.org/howto/corpus.html#common-corpus-reader-methods
 #http://www.nltk.org/nltk_data/
-
-# for synset in (wn.synsets("dog")):
-#     all_synsets.append(synset)
-#
-#
-# result = []
-# length = len(all_synsets)
-# for synset in all_synsets:
-#     count = 0
-#     while count < length-1:
-#         temp = []
-#         temp.append(all_synsets[count])
-#         temp.append(all_synsets[count+1])
-#         result.append(temp)
-#         count = count + 1
-#
-# result = [list(v) for v in dict(result).items()]
-# for item in result:
-#
-#     print('The similarity of {} and {} is: {}'.format(item[0].lemma_names()[0],item[1].lemma_names()[0],wn.wup_similarity(item[0],item[1])))
-
-
-
-#print(wn.wup_similarity(all_synsets[0], all_synsets[1]))
-#print(wn.wup_similarity(wn.synset('bank.n.01'), wn.synset('bank.n.04')))
-
-
-    # item = "car"
-    # content = str(item)+".n.01"
-    # lemmas = wn.synset(content).lemma_names()
-    # for lemma in lemmas:
-    #     print(lemma)
-    # for synset in wn.synsets(item):
-    #     print(synset.lemma_names())
-
-    # dog = wn.synset('dog.n.01')
-    # cat = wn.synset('cat.n.01')
-    # print(dog.path_similarity(cat))
-    #
-    # print(dog.lch_similarity(cat))
-    #
-    # print(dog.wup_similarity(cat))
-
-
-
-    #porter = nltk.PorterStemmer()
