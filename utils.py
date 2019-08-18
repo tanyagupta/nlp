@@ -84,7 +84,7 @@ def stress():
     res = [w for w, pron in entries if [char for phone in pron for char in phone if char.isdigit()] == ['0', '1', '0', '2', '0']]
     return res
 
-def sim_syns(text):
+def sim_wup_syns(text):
     all_synsets = []
     for synset in (wn.synsets(text)):
         all_synsets.append(synset)
