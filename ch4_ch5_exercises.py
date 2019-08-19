@@ -4,6 +4,11 @@ from nltk import word_tokenize
 from nltk.data import load
 tagdict = load('help/tagsets/upenn_tagset.pickle')
 
+short_tagdict = {}
+for item in tagdict:
+        short_tagdict[item] = tagdict[item][0]
+
+print (short_tagdict)
 sent = ['Take', 'care', 'of', 'the', 'sense', ',', 'and', 'the','sounds', 'will', 'take', 'care', 'of', 'themselves', '.']
 
 
@@ -27,9 +32,9 @@ def modify(inputStr):
 
     tokens =  word_tokenize(inputStr)
     tagged = nltk.pos_tag(tokens)
+    #print(tagdict)
 
-    
-    print(tagdict[tagged[0][1]][0])
+    #print(tagdict[tagged[0][1]][0])
 
     # auxiliary_verbs = [i for i, w in enumerate(tagged) if w[1] == 'VBP']
     # if auxiliary_verbs:
