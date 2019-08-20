@@ -3,12 +3,17 @@ from nltk.corpus import nps_chat as nps_chat
 from nltk import word_tokenize
 from nltk.data import load
 tagdict = load('help/tagsets/upenn_tagset.pickle')
+from nltk.corpus import names
+import random
+from nltk.corpus import movie_reviews
+
+
 
 short_tagdict = {}
 for item in tagdict:
         short_tagdict[item] = tagdict[item][0]
 
-print (short_tagdict)
+#print (short_tagdict)
 sent = ['Take', 'care', 'of', 'the', 'sense', ',', 'and', 'the','sounds', 'will', 'take', 'care', 'of', 'themselves', '.']
 
 
@@ -26,7 +31,27 @@ def permutations(seq):
             for i in range(len(perm)+1):
                 yield perm[:i] + seq[0:1] + perm[i:]
 
+def gender_features(word):
+    vcount =0
+    ccount=0
+    vowels = ['a','e','i','o','u']
+    for letter in word:
+        if letter.lower() in vowels:
+            vcount=vcount+1
+        else:
+            ccount = ccount+1
+    result = {'last_letter': word[-1].lower(),'scndlstlttr': word[-2],'first_letter' : word[0].lower(), 'consonant_count':ccount/len(word)}
+    return result
 
+def class_name():
+    labeled_names = ([(name, 'male') for name in names.words('male.txt')] + [(name, 'female') for name in names.words('female.txt')])
+    random.shuffle(labeled_names)
+    featuresets = [(gender_features(n), gender) for (n, gender) in labeled_names]
+    train_set, test_set = featuresets[500:], featuresets[:500]
+    classifier = nltk.NaiveBayesClassifier.train(train_set)
+    print(classifier.classify(gender_features('Neo')))
+    print(nltk.classify.accuracy(classifier, test_set))
+    print(classifier.show_most_informative_features(10))
 
 def modify(inputStr):
 
@@ -60,12 +85,32 @@ def use():
     #print(question_two)
 
 
+def document_features(document):
+    document_words = set(document)
+    features = {}
+    for word in word_features:
+        features['contains({})'.format(word)] = (word in document_words)
+        #features[word] = word in document_words
+
+    return features
+
+def movies():
+    documents = [(list(movie_reviews.words(fileid)), category) for category in movie_reviews.categories() for fileid in movie_reviews.fileids(category)]
+    random.shuffle(documents)
+
+    featuresets = [(document_features(d), c) for (d,c) in documents]
+    train_set, test_set = featuresets[100:], featuresets[:100]
+    classifier = nltk.NaiveBayesClassifier.train(train_set)
+    print(nltk.classify.accuracy(classifier, test_set))
+    print(classifier.show_most_informative_features(50))
 
 def dialogue_act_features(post):
     features = {}
     for word in nltk.word_tokenize(post):
         features['contains({})'.format(word.lower())] = True
-    return features
+        #features[word.lower()] = True
+
+
 
 def classify_text():
     posts = nps_chat.xml_posts()[:10000]
@@ -88,7 +133,14 @@ if __name__ == '__main__':
     #print(extract_property(last_letter))
     #print(list(permutations(['police', 'fish', 'buffalo'])))
     #classify_text()
-    use()
+    #use()
+    #class_name()
+    #print(document_features(movie_reviews.words('pos/cv957_8737.txt')))
+
+    all_words = nltk.FreqDist(w.lower() for w in movie_reviews.words())
+    word_features = list(all_words)[:2000]
+    movies()
+
 
 
 
