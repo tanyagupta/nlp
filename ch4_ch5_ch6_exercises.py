@@ -87,12 +87,17 @@ def use():
 
 def document_features(document):
     document_words = set(document)
-    features = {}
-    for word in word_features:
-        features['contains({})'.format(word)] = (word in document_words)
+    movie_features = {}
+    for word in movie_word_features:
+        movie_features['contains({})'.format(word)] = (word in document_words)
         #features[word] = word in document_words
 
-    return features
+    return movie_features
+
+def get_movie_words():
+    all_words = nltk.FreqDist(w.lower() for w in movie_reviews.words())
+    movie_words = list(all_words)[:2000]
+    return movie_words
 
 def movies():
     documents = [(list(movie_reviews.words(fileid)), category) for category in movie_reviews.categories() for fileid in movie_reviews.fileids(category)]
@@ -137,8 +142,7 @@ if __name__ == '__main__':
     #class_name()
     #print(document_features(movie_reviews.words('pos/cv957_8737.txt')))
 
-    all_words = nltk.FreqDist(w.lower() for w in movie_reviews.words())
-    word_features = list(all_words)[:2000]
+    movie_word_features = get_movie_words()
     movies()
 
 
