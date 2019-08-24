@@ -6,7 +6,8 @@ tagdict = load('help/tagsets/upenn_tagset.pickle')
 from nltk.corpus import names
 import random
 from nltk.corpus import movie_reviews
-
+from nltk.stem.wordnet import WordNetLemmatizer
+import spacy
 
 
 short_tagdict = {}
@@ -134,6 +135,17 @@ def classify_text():
     # The dialogue-act tags are Accept, Bye, Clarify, Continuer, Emotion, Emphasis, Greet, No Answer, Other, Reject, Statement, System, Wh-Question, Yes Answer, Yes/No Question.
     # http://faculty.nps.edu/cmartell/NPSChat.htm
     #
+
+
+
+def spacy_basic_test():
+    nlp = spacy.load('en_core_web_sm')
+    doc = nlp(u'Apple is looking at buying U.K. startup for $1 billion')
+
+    for token in doc:
+        print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
+                token.shape_, token.is_alpha, token.is_stop)
+
 if __name__ == '__main__':
     #print(extract_property(last_letter))
     #print(list(permutations(['police', 'fish', 'buffalo'])))
@@ -144,7 +156,7 @@ if __name__ == '__main__':
 
     movie_word_features = get_movie_words()
     movies()
-
+    #spacy_basic_test()
 
 
 
