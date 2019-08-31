@@ -14,7 +14,7 @@ print('---')
 print('starting up Java Stanford CoreNLP Server...')
 
 # set up the client
-with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','parse','depparse','coref'], timeout=10000, memory='16G') as client:
+with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','parse','depparse','coref'], be_quiet=False, timeout=10000, memory='16G') as client:
     # submit the request to the server
     ann = client.annotate(text)
 
@@ -92,3 +92,5 @@ with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','parse','
     matches["sentences"][1]["0"]["text"] == "wrote"
     matches["sentences"][1]["0"]["$subject"]["text"] == "Chris"
     matches["sentences"][1]["0"]["$object"]["text"] == "sentence"
+
+    #https://stanfordnlp.github.io/stanfordnlp/corenlp_client.html#usage
