@@ -1,6 +1,4 @@
-import stanfordnlp
 from stanfordnlp.server import CoreNLPClient
-
 
 # example text
 print('---')
@@ -16,7 +14,7 @@ print('---')
 print('starting up Java Stanford CoreNLP Server...')
 
 # set up the client
-with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','parse','depparse','coref'], timeout=60000, memory='16G') as client:
+with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','parse','depparse','coref'], timeout=10000, memory='16G') as client:
     # submit the request to the server
     ann = client.annotate(text)
 
