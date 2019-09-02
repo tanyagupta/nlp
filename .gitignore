@@ -38,6 +38,7 @@ Pipfile.lock
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.props
 Pipfile
 Pipfile.lock
 **/__pycache__
