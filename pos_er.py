@@ -17,11 +17,20 @@ def readText ():
         print ("No file name to read")
 
 def getAnalysis(props):
+    result={}
     for item in props:
         #print(item)
         if len(item["ner"]) > 1:
             print("There is a reference to {} in the word {}".format(item["ner"],item["word"]))
-
+            if item["ner"] == "PERSON":
+                result["replace"] = True
+                result["type"] = "PERSON"
+                result["wordToReplace"] = item["word"]
+            if item["ner"] == "LOCATION":
+                result["replace"] = True
+                result["type"] = "LOCATION"
+                result["wordToReplace"] = item["word"]
+    return result
 
 
 def runClient(text):
@@ -32,8 +41,8 @@ def runClient(text):
     with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','natlog','openie'], be_quiet=False, timeout=30000, memory='16G') as client:
         # submit the request to the server
         # Iterate over all tokens in all sentences, and print out the word, lemma, pos and ner tags
-        chunkz = "Bob is a fat cat"
-        document = client.annotate(chunkz)
+        text = "Susan likes to knit"
+        document = client.annotate(text)
         output = client.annotate(text, properties={"outputFormat": "json",
                                  "openie.triple.strict":"true",
                                  "splitter.disable" : "true",
@@ -53,7 +62,13 @@ def runClient(text):
                 props.append({"word":t.word,"lemma":t.lemma,"pos":t.pos,"pos_full":tags[t.pos],"ner":t.ner})
                 #print("Word: {}, Lemma: {}, POS: {}, NER: {}".format(t.word,t.lemma,tags[t.pos],t.ner))
 
-        getAnalysis(props)
+        replaceWord = getAnalysis(props)
+        if replaceWord["replace"] and replaceWord["type"] == "PERSON":
+            text = text.replace(replaceWord["wordToReplace"],"who")+" ?"
+            print(text)
+        if replaceWord["replace"] and replaceWord["type"] == "LOCATION":
+            #text = ''.join("Where is ",relationSent["subject"]," ?")
+            print("Where is {} ?".format(replaceWord["wordToReplace"]))
         # for i, sent in enumerate(document.sentence):
             # print("[Sentence {}]".format(i+1))
             # for t in sent.token:
