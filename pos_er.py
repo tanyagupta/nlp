@@ -38,17 +38,20 @@ def runClient(text):
     print('starting up Java Stanford CoreNLP Server...')
     # set up the client
     #with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','natlog','openie'], properties={"outputFormat": "json","openie.triple.strict":"true","splitter.disable" : "true","openie.max_entailments_per_clause":"1"}, be_quiet=False, timeout=30000, memory='16G') as client:
-    with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','natlog','openie'], be_quiet=False, timeout=30000, memory='16G') as client:
+    with CoreNLPClient(annotators=['tokenize','ssplit','pos','lemma','ner','natlog','openie'], be_quiet=True, timeout=30000, memory='16G') as client:
         # submit the request to the server
         # Iterate over all tokens in all sentences, and print out the word, lemma, pos and ner tags
-        text = "Susan likes to knit"
+        text = "Trump is the President of America"
         document = client.annotate(text)
         output = client.annotate(text, properties={"outputFormat": "json",
                                  "openie.triple.strict":"true",
                                  "splitter.disable" : "true",
                                  "openie.max_entailments_per_clause":"1"})
+        #print(output)
         result = [output["sentences"][0]["openie"] for item in output]
         print(result)
+        print(result[0][0]["subject"])
+        # [[{'subject': 'John', 'subjectSpan': [0, 1], 'relation': 'jumps over', 'relationSpan': [1, 3], 'object': 'fox', 'objectSpan': [4, 5]}]]
         for i in result:
             for rel in i:
                 relationSent=rel['relation'],rel['subject'],rel['object']
