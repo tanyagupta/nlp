@@ -6,6 +6,16 @@ This is some test code related to NLP and more
 The correct reference (book) for the exercises is:
 https://www.nltk.org/book/
 
+## Pipenv
+1. IMPORTANT: be sure you are in the right directory
+2. pipenv shell to install shell
+3. pip install nlp (or other packages)
+
+## Gitpod error handling
+For error *ERROR: Can not perform a '--user' install. User site-packages are not visible in this virtualenv*, try:
+export PIP_USER=no
+(reference https://github.com/gitpod-io/gitpod/issues/479)
+
 ## Getting Started
 1. Go to the correct directory
 2. Check if pip file is there
@@ -23,7 +33,7 @@ https://www.nltk.org/book/
 1. Note pipenv shell has nothing to do with directories. You can always cd to change the directory within the pipenv shell. In the above example you can cd .., pwd to check you are one level up and then directly run *python test.py* without the *../*
 
 
-##List of parts of speech
+## List of parts of speech
 ### CC: conjunction, coordinating
 `& 'n and both but either et for less minus neither nor or plus so therefore times v. versus vs. whether yet`
 ### CD: numeral, cardinal
