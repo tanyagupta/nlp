@@ -12,9 +12,12 @@ https://www.nltk.org/book/
 3. pip install nlp (or other packages)
 
 ## Import and download packages
-*>>> import nltk* in python shell
+*>>> import nltk* in python shell <br>
+
 *>>> nltk.download('wordnet')* in python shell
+
 *nltk.download('opinion_lexicon')*
+
 *nltk.download('punkt')* etc.
 
 ## Gitpod error handling
