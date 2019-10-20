@@ -11,6 +11,12 @@ https://www.nltk.org/book/
 2. pipenv shell to install shell
 3. pip install nlp (or other packages)
 
+## Import and download packages
+*>>> import nltk* in python shell
+*>>> nltk.download('wordnet')* in python shell
+*nltk.download('opinion_lexicon')*
+*nltk.download('punkt')* etc.
+
 ## Gitpod error handling
 For error *ERROR: Can not perform a '--user' install. User site-packages are not visible in this virtualenv*, try:
 export PIP_USER=no

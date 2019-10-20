@@ -9,6 +9,8 @@ from nltk.corpus import wordnet as wn
 
 from nltk.corpus import stopwords as sw
 
+
+
 def main():
     word_data = get_sent()
     sent_obj = analyze(word_data)
