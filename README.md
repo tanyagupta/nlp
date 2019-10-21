@@ -20,6 +20,12 @@ https://www.nltk.org/book/
 
 *nltk.download('punkt')* etc.
 
+For a specific directory use: To specify the download directory, use for example:
+
+nltk.download('wordnet', download_dir='/workspace/nlp/nltk_data')
+
+On the terminal do: export NLTK_DATA=//workspace/nlp/nltk_data before calling your python script
+
 ## Gitpod error handling
 For error *ERROR: Can not perform a '--user' install. User site-packages are not visible in this virtualenv*, try:
 export PIP_USER=no

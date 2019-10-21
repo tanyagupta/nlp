@@ -1,6 +1,5 @@
 import sys
 import nltk
-
 from nltk.corpus import opinion_lexicon
 from nltk.corpus import stopwords
 from nltk.text import Text
