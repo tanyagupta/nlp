@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/tanyagupta/nlp) 
+
 # nlp
 NLP test code
 This is some test code related to NLP and more
